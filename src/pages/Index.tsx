@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useDustid } from "@/context/DustidContext";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const { openAuthModal, selectedContact } = useDustid();
@@ -21,6 +22,11 @@ const Index = () => {
             <p className="mt-4 max-w-md text-lg text-muted-foreground">
               Browse curated gifts and send them directly to your loved ones — no address needed.
             </p>
+            <Link to="/collection">
+              <Button variant="outline" className="mt-6 h-12 px-6 text-base font-semibold gap-2">
+                Browse All Gifts <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
 
           {/* Dustid Widget */}
@@ -42,7 +48,7 @@ const Index = () => {
                 </div>
               ) : (
                 <Button className="mt-6 w-full h-12 text-base font-semibold gap-2" onClick={openAuthModal}>
-                  Connect with Dustid <ArrowRight className="h-4 w-4" />
+                  Connect to Dustid <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
             </div>
@@ -52,10 +58,19 @@ const Index = () => {
 
       {/* Product Grid */}
       <section className="container py-16">
-        <h2 className="font-heading text-2xl font-bold text-foreground">Curated Gifts</h2>
-        <p className="mt-1 text-muted-foreground">Perfect presents for every occasion</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="font-heading text-2xl font-bold text-foreground">Curated Gifts</h2>
+            <p className="mt-1 text-muted-foreground">Perfect presents for every occasion</p>
+          </div>
+          <Link to="/collection">
+            <Button variant="ghost" className="gap-1 text-primary">
+              View All <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p) => (
+          {products.slice(0, 4).map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>

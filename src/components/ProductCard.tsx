@@ -1,6 +1,7 @@
 import { useDustid } from "@/context/DustidContext";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { Product } from "@/data/products";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -15,14 +16,20 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="group overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg">
-      <div
-        className={`flex h-56 items-center justify-center bg-gradient-to-br ${colors[product.id % colors.length]}`}
-      >
-        <span className="font-heading text-4xl opacity-60">🎁</span>
-      </div>
+      <Link to={`/product/${product.id}`}>
+        <div
+          className={`flex h-56 items-center justify-center bg-gradient-to-br ${colors[product.id % colors.length]} cursor-pointer`}
+        >
+          <span className="font-heading text-4xl opacity-60">🎁</span>
+        </div>
+      </Link>
       <div className="p-4">
         <p className="text-xs font-medium text-muted-foreground">{product.category}</p>
-        <h3 className="mt-1 font-heading text-base font-semibold text-foreground">{product.name}</h3>
+        <Link to={`/product/${product.id}`}>
+          <h3 className="mt-1 font-heading text-base font-semibold text-foreground hover:text-primary transition-colors">
+            {product.name}
+          </h3>
+        </Link>
         <div className="mt-3 flex items-center justify-between">
           <span className="text-lg font-bold text-foreground">£{product.price.toFixed(2)}</span>
           <Button
