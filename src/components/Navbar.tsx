@@ -15,6 +15,9 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-6">
           <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Home
+          </Link>
+          <Link to="/collection" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Shop
           </Link>
           <Link to="/cart" className="relative text-muted-foreground hover:text-foreground transition-colors">

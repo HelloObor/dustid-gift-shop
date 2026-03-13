@@ -7,6 +7,8 @@ import DustidBanner from "@/components/DustidBanner";
 import AuthModal from "@/components/AuthModal";
 import Navbar from "@/components/Navbar";
 import Index from "./pages/Index";
+import Collection from "./pages/Collection";
+import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
@@ -23,6 +25,8 @@ const App = () => (
         <AuthModal />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/collection" element={<Collection />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/success" element={<Success />} />

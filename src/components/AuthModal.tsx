@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useDustid } from "@/context/DustidContext";
-import { Gift, X, ArrowLeft } from "lucide-react";
+import { Gift, X, ArrowLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function AuthModal() {
   const { showAuthModal, authStep, closeAuthModal, setAuthStep, authenticate, selectContact, contacts } = useDustid();
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
+  const [selectedName, setSelectedName] = useState<string | null>(null);
 
   if (!showAuthModal) return null;
 
@@ -19,6 +20,11 @@ export default function AuthModal() {
       const el = document.getElementById(`otp-${index + 1}`);
       el?.focus();
     }
+  };
+
+  const handleConfirmRecipient = () => {
+    const contact = contacts.find((c) => c.name === selectedName);
+    if (contact) selectContact(contact);
   };
 
   return (
@@ -73,7 +79,7 @@ export default function AuthModal() {
               ))}
             </div>
             <Button className="w-full h-12 text-base font-semibold" onClick={() => authenticate()}>
-              Verify
+              Verify Code
             </Button>
             <button
               onClick={() => setAuthStep("input")}
@@ -86,22 +92,38 @@ export default function AuthModal() {
 
         {/* Step: Select */}
         {authStep === "select" && (
-          <div className="space-y-2">
-            {contacts.map((c) => (
-              <button
-                key={c.name}
-                onClick={() => selectContact(c)}
-                className="flex w-full items-center gap-3 rounded-lg border border-border p-4 text-left transition-colors hover:border-primary hover:bg-lavender/30"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-lavender font-heading text-sm font-semibold text-primary">
-                  {c.name[0]}
-                </div>
-                <div>
-                  <div className="font-medium text-foreground">{c.name}</div>
-                  <div className="text-xs text-muted-foreground">{c.address.city}</div>
-                </div>
-              </button>
-            ))}
+          <div className="space-y-3">
+            <div className="space-y-2">
+              {contacts.map((c) => (
+                <button
+                  key={c.name}
+                  onClick={() => setSelectedName(c.name)}
+                  className={`flex w-full items-center gap-3 rounded-lg border p-4 text-left transition-colors ${
+                    selectedName === c.name
+                      ? "border-primary bg-lavender/30"
+                      : "border-border hover:border-primary hover:bg-lavender/20"
+                  }`}
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-lavender font-heading text-sm font-semibold text-primary">
+                    {c.name[0]}
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium text-foreground">{c.name}</div>
+                    <div className="text-xs text-muted-foreground">{c.address.city}</div>
+                  </div>
+                  {selectedName === c.name && (
+                    <Check className="h-5 w-5 text-primary" />
+                  )}
+                </button>
+              ))}
+            </div>
+            <Button
+              className="w-full h-12 text-base font-semibold"
+              disabled={!selectedName}
+              onClick={handleConfirmRecipient}
+            >
+              Confirm Recipient
+            </Button>
           </div>
         )}
       </div>

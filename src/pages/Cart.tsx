@@ -1,10 +1,10 @@
 import { useDustid } from "@/context/DustidContext";
 import { Button } from "@/components/ui/button";
-import { Trash2, ShoppingBag } from "lucide-react";
+import { Trash2, ShoppingBag, Gift, ArrowRight } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Cart() {
-  const { cart, removeFromCart, selectedContact } = useDustid();
+  const { cart, removeFromCart, selectedContact, openAuthModal } = useDustid();
   const navigate = useNavigate();
   const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
@@ -44,6 +44,28 @@ export default function Cart() {
         ))}
       </div>
 
+      {/* Dustid connect card - shown when not connected */}
+      {!selectedContact && (
+        <div className="mt-6 rounded-xl border border-lavender bg-lavender/20 p-6">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-lavender">
+              <Gift className="h-6 w-6 text-primary" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-heading font-semibold text-foreground">
+                Send this order as a gift using Dustid
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Connect your Dustid address book and we'll deliver directly to your recipient.
+              </p>
+              <Button className="mt-3 gap-2" onClick={openAuthModal}>
+                Connect to Dustid <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mt-8 rounded-xl border border-border bg-card p-6">
         <div className="flex justify-between text-lg font-semibold text-foreground">
           <span>Total</span>
@@ -51,7 +73,7 @@ export default function Cart() {
         </div>
         {selectedContact && (
           <p className="mt-2 text-sm text-muted-foreground">
-            Gift for <strong>{selectedContact.name}</strong>
+            Gift will be delivered to <strong className="text-foreground">{selectedContact.name}</strong>
           </p>
         )}
         <Button
