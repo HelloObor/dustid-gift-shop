@@ -6,6 +6,7 @@ import { DustidProvider } from "@/context/DustidContext";
 import DustidBanner from "@/components/DustidBanner";
 import AuthModal from "@/components/AuthModal";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import Collection from "./pages/Collection";
 import ProductDetail from "./pages/ProductDetail";
@@ -23,15 +24,18 @@ const App = () => (
         <DustidBanner />
         <Navbar />
         <AuthModal />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/collection" element={<Collection />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <main className="min-h-[60vh]">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/collection" element={<Collection />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
       </BrowserRouter>
     </TooltipProvider>
   </DustidProvider>
