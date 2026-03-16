@@ -62,6 +62,7 @@ export function DustidProvider({ children }: { children: ReactNode }) {
   });
 
   const openAuthModal = () => setState((s) => ({ ...s, showAuthModal: true, authStep: "input" }));
+  const openRecipientPicker = () => setState((s) => ({ ...s, showAuthModal: true, authStep: "select" }));
   const closeAuthModal = () => setState((s) => ({ ...s, showAuthModal: false }));
   const setAuthStep = (step: DustidState["authStep"]) => setState((s) => ({ ...s, authStep: step }));
   const authenticate = () => setState((s) => ({ ...s, isAuthenticated: true, authStep: "select" }));
