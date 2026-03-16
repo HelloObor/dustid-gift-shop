@@ -87,6 +87,7 @@ export function DustidProvider({ children }: { children: ReactNode }) {
       value={{
         ...state,
         openAuthModal,
+        openRecipientPicker,
         closeAuthModal,
         setAuthStep,
         authenticate,

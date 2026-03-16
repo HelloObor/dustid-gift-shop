@@ -12,7 +12,7 @@ export default function DustidBanner() {
         Shopping for <strong>{selectedContact.name}</strong>
       </span>
       <button
-        onClick={openAuthModal}
+        onClick={openRecipientPicker}
         className="inline-flex items-center gap-1 rounded-md bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary/20"
       >
         Change Recipient <ChevronDown className="h-3 w-3" />
