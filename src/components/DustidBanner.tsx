@@ -2,7 +2,7 @@ import { useDustid } from "@/context/DustidContext";
 import { ChevronDown } from "lucide-react";
 
 export default function DustidBanner() {
-  const { selectedContact, openAuthModal } = useDustid();
+  const { selectedContact, openRecipientPicker } = useDustid();
 
   if (!selectedContact) return null;
 
