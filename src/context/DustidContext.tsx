@@ -29,6 +29,7 @@ interface DustidState {
 
 interface DustidContextType extends DustidState {
   openAuthModal: () => void;
+  openRecipientPicker: () => void;
   closeAuthModal: () => void;
   setAuthStep: (step: DustidState["authStep"]) => void;
   authenticate: () => void;
