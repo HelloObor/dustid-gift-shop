@@ -21,6 +21,10 @@ export default function Checkout() {
     return null;
   }
 
+  const addressLine = [selectedContact.address.address1, selectedContact.address.address2]
+    .filter(Boolean)
+    .join(", ");
+
   return (
     <div className="min-h-[80vh] bg-muted/30 animate-fade-in">
       {/* Breadcrumb */}
@@ -56,16 +60,26 @@ export default function Checkout() {
                 </div>
                 <div>
                   <label className="text-xs font-medium text-muted-foreground">Address</label>
-                  <Input value={selectedContact.address.line1} disabled className="mt-1 bg-lavender/20 text-foreground border-lavender" />
+                  <Input value={addressLine} disabled className="mt-1 border-lavender bg-lavender/20 text-foreground" />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="text-xs font-medium text-muted-foreground">City</label>
-                    <Input value={selectedContact.address.city} disabled className="mt-1 bg-lavender/20 text-foreground border-lavender" />
+                    <Input value={selectedContact.address.city} disabled className="mt-1 border-lavender bg-lavender/20 text-foreground" />
                   </div>
                   <div>
                     <label className="text-xs font-medium text-muted-foreground">Country</label>
-                    <Input value={selectedContact.address.country} disabled className="mt-1 bg-lavender/20 text-foreground border-lavender" />
+                    <Input value={selectedContact.address.country} disabled className="mt-1 border-lavender bg-lavender/20 text-foreground" />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs font-medium text-muted-foreground">Region</label>
+                    <Input value={selectedContact.address.province || "—"} disabled className="mt-1 border-lavender bg-lavender/20 text-foreground" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-medium text-muted-foreground">Postcode</label>
+                    <Input value={selectedContact.address.zip || "—"} disabled className="mt-1 border-lavender bg-lavender/20 text-foreground" />
                   </div>
                 </div>
               </div>
@@ -76,8 +90,12 @@ export default function Checkout() {
 
             {/* Contact Info */}
             <div className="rounded-xl border border-border bg-card p-6">
-              <h3 className="font-heading font-semibold text-foreground mb-4">Contact Information</h3>
-              <Input placeholder="Email for order confirmation" className="h-12" defaultValue="you@example.com" />
+              <h3 className="mb-4 font-heading font-semibold text-foreground">Contact Information</h3>
+              <Input
+                placeholder="Email for order confirmation"
+                className="h-12"
+                defaultValue={selectedContact.email || "you@example.com"}
+              />
             </div>
 
             {/* Payment */}
